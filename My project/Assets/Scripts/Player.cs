@@ -1,26 +1,23 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(SpriteRenderer), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+    public event UnityAction<Vector2> ObjectMove;
+    public event UnityAction ObjectStopped;
+
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _invulnerabilityTime;
 
     private Rigidbody2D _rigidbody;
-    private SpriteRenderer _renderer;
-    private Animator _animator;
     private bool _isGrounded;
 
     private int _health;
     private bool _canTakeDamage;
     private int _coinsCount;
-
-    public void TakeCoin()
-    {
-        _coinsCount++;
-    }
 
     public void TakeDamage()
     {
@@ -43,30 +40,30 @@ public class Player : MonoBehaviour
         }
 
         if (Input.GetButton("Horizontal"))
-        {
-            _animator.SetBool("IsRun", true);
             Run();
-        }
-        else
-        {
-            _animator.SetBool("IsRun", false);
-        }
+        else if (ObjectStopped != null)
+            ObjectStopped.Invoke();
     }
 
     private void Run()
     {
         Vector2 newPosition = transform.right * Input.GetAxis("Horizontal");
-
         _rigidbody.position += newPosition * _speed * Time.deltaTime;
-        _renderer.flipX = newPosition.x < 0;
+
+        if (ObjectMove != null)
+            ObjectMove.Invoke(newPosition);
     }
 
-    private void Start()
+    private void Awake()
     {
         _canTakeDamage = true;
         _rigidbody = GetComponent<Rigidbody2D>();
-        _renderer = GetComponent<SpriteRenderer>();
-        _animator = GetComponent<Animator>();
+    }
+
+    private void TakeCoin(Coin coin)
+    {
+        _coinsCount++;
+        Destroy(coin.gameObject);
     }
 
     private IEnumerator InvulnerabilityTimer()
@@ -79,15 +76,18 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag == "Ground")
-        {
             _isGrounded = true;
-            print(1);
-        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.transform.tag == "Ground")
             _isGrounded = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out Coin coin))
+            TakeCoin(coin);
     }
 }

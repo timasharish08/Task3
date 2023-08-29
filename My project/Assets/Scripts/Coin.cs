@@ -1,25 +1,12 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Coin : MonoBehaviour
 {
-    private CoinSpawner _spawner;
-
-    public void Init(CoinSpawner spawner)
-    {
-        _spawner = spawner;
-    }
+    public event UnityAction<Coin> ObjectDestroyed;
 
     private void OnDestroy()
     {
-        _spawner.OnCoinDestroed();
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Player")
-        {
-            collision.GetComponent<Player>().TakeCoin();
-            Destroy(gameObject);
-        }
+        ObjectDestroyed.Invoke(this);
     }
 }

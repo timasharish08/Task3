@@ -3,29 +3,34 @@ using UnityEngine;
 
 public class CoinSpawner : MonoBehaviour
 {
-    [SerializeField] private Coin _coinPrefab;
+    [SerializeField] private Coin _prefab;
     [SerializeField] private float _spawnTime;
 
-    public void OnCoinDestroed()
+    private WaitForSeconds wait;
+
+    public void OnCoinDestroed(Coin coin)
     {
+        coin.ObjectDestroyed -= OnCoinDestroed;
+
         if (gameObject.activeSelf)
             StartCoroutine(WaitForSpawn());
     }
 
     private void Start()
     {
+        wait = new WaitForSeconds(_spawnTime);
         Spawn();
     }
 
     private void Spawn()
     {
-        Coin coin = Instantiate(_coinPrefab, transform.position, transform.rotation, transform);
-        coin.Init(this);
+        Coin coin = Instantiate(_prefab, transform.position, transform.rotation, transform);
+        coin.ObjectDestroyed += OnCoinDestroed;
     }
 
     private IEnumerator WaitForSpawn()
     {
-        yield return new WaitForSeconds(_spawnTime);
+        yield return wait;
         Spawn();
     }
 }

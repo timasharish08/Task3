@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c66a32abaa9583d4190d3dbbc9acdc4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coinPrefab: {fileID: 5828361967240807211, guid: e312a183c45ca854abdd5f6c7c7b7485, type: 3}
+  _prefab: {fileID: 5828361967240807211, guid: e312a183c45ca854abdd5f6c7c7b7485, type: 3}
   _spawnTime: 5
