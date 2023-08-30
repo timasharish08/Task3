@@ -7,6 +7,7 @@ public class Coin : MonoBehaviour
 
     private void OnDestroy()
     {
-        ObjectDestroyed.Invoke(this);
+        if (ObjectDestroyed != null)
+            ObjectDestroyed.Invoke(this);
     }
 }

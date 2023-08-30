@@ -486,6 +486,7 @@ GameObject:
   - component: {fileID: 750679190}
   - component: {fileID: 750679189}
   - component: {fileID: 750679188}
+  - component: {fileID: 750679194}
   m_Layer: 0
   m_Name: Platforms
   m_TagString: Ground
@@ -1030,6 +1031,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &750679194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 750679186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fccf128f49d8fb4e89354048ca7285a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &988600963
 GameObject:
   m_ObjectHideFlags: 0
@@ -1804,6 +1817,7 @@ GameObject:
   - component: {fileID: 1931895580}
   - component: {fileID: 1931895579}
   - component: {fileID: 1931895578}
+  - component: {fileID: 1931895583}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Ground
@@ -2641,6 +2655,18 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &1931895583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931895576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fccf128f49d8fb4e89354048ca7285a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1988146246
 GameObject:
   m_ObjectHideFlags: 0

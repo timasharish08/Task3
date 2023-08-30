@@ -75,13 +75,13 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Ground")
+        if (collision.transform.TryGetComponent(out Ground ground))
             _isGrounded = true;
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.transform.tag == "Ground")
+        if (collision.transform.TryGetComponent(out Ground ground))
             _isGrounded = false;
     }
 
