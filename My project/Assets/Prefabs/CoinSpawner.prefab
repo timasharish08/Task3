@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: CoinSpawner
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 5828361967240807211, guid: e312a183c45ca854abdd5f6c7c7b7485, type: 3}
-  _spawnTime: 5
+  _spawnTime: 3

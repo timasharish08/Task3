@@ -5,33 +5,57 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private Transform[] _movePoints;
     [SerializeField] private float _speed;
     [SerializeField] private float _waitTime;
+
+    [SerializeField] private int _damage;
+
+    private Rigidbody2D _rigidbody;
 
     private Vector3[] _positions;
     private int _currentPosition;
 
-    private Rigidbody2D _rigidbody;
+    private Coroutine _moving;
 
     private void Awake()
     {
-        _positions = GetComponentsInChildren<Transform>().Select(child => child.position).ToArray();
         _rigidbody = GetComponent<Rigidbody2D>();
+        _positions = _movePoints.Select(point => point.position).ToArray();
+    }
+
+    private void Start()
+    {
+        _moving = StartCoroutine(Moving(_positions[_currentPosition]));
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent(out Player player))
+        {
+            StopCoroutine(_moving);
+            _moving = StartCoroutine(Moving(player.transform));
+        }
+    }
+
+    public void AttackPlayer(Player player)
+    {
+        player.TakeDamage(_damage);
     }
 
     private void OnMoveEnd()
     {
-        _currentPosition = ++_currentPosition % _positions.Length;
-        StartCoroutine(MoveToPosition());
+        _currentPosition = ++_currentPosition % _movePoints.Length;
+        _moving = StartCoroutine(Moving(_positions[_currentPosition]));
     }
 
-    private IEnumerator MoveToPosition()
+    private IEnumerator Moving(Vector3 position)
     {
-        WaitForFixedUpdate wait = new WaitForFixedUpdate();
+        WaitForEndOfFrame wait = new WaitForEndOfFrame();
 
-        while (transform.position != _positions[_currentPosition])
+        while (transform.position != position)
         {
-            _rigidbody.position = Vector3.MoveTowards(_rigidbody.position, _positions[_currentPosition], _speed * Time.deltaTime);
+            _rigidbody.position = Vector3.MoveTowards(_rigidbody.position, position, _speed * Time.deltaTime);
             yield return wait;
         }
 
@@ -39,9 +63,17 @@ public class Enemy : MonoBehaviour
         OnMoveEnd();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private IEnumerator Moving(Transform point)
     {
-        if (collision.TryGetComponent<Player>(out Player player))
-            player.TakeDamage();
+        WaitForEndOfFrame wait = new WaitForEndOfFrame();
+
+        while (transform.position != point.position)
+        {
+            _rigidbody.position = Vector3.MoveTowards(_rigidbody.position, point.position, _speed * Time.deltaTime);
+            yield return wait;
+        }
+
+        yield return new WaitForSeconds(_waitTime);
+        OnMoveEnd();
     }
 }
