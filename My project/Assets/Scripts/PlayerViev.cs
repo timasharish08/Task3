@@ -1,13 +1,13 @@
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer), typeof(Animator), typeof(Player))]
+[RequireComponent(typeof(SpriteRenderer), typeof(Animator), typeof(PlayerMover))]
 public class PlayerViev : MonoBehaviour
 {
     public readonly int IsRun = Animator.StringToHash(nameof(IsRun));
 
     private SpriteRenderer _renderer;
     private Animator _animator;
-    private Player _player;
+    private PlayerMover _mover;
 
     public void OnPlayerMove(Vector2 moving)
     {
@@ -24,18 +24,18 @@ public class PlayerViev : MonoBehaviour
     {
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-        _player = GetComponent<Player>();
+        _mover = GetComponent<PlayerMover>();
     }
 
     private void OnEnable()
     {
-        _player.ObjectMove += OnPlayerMove;
-        _player.ObjectStopped += OnPlayerStopped;
+        _mover.Move += OnPlayerMove;
+        _mover.Stopped += OnPlayerStopped;
     }
 
     private void OnDisable()
     {
-        _player.ObjectMove -= OnPlayerMove;
-        _player.ObjectStopped -= OnPlayerStopped;
+        _mover.Move -= OnPlayerMove;
+        _mover.Stopped -= OnPlayerStopped;
     }
 }

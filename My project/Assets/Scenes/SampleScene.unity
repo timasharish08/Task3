@@ -2735,10 +2735,11 @@ GameObject:
   - component: {fileID: 1988146249}
   - component: {fileID: 1988146248}
   - component: {fileID: 1988146247}
-  - component: {fileID: 1988146252}
-  - component: {fileID: 1988146253}
   - component: {fileID: 1988146251}
   - component: {fileID: 1988146250}
+  - component: {fileID: 1988146252}
+  - component: {fileID: 1988146254}
+  - component: {fileID: 1988146253}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Player
@@ -2918,11 +2919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: debf5ee04e1edd843a455cddb6cd1d05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
-  _jumpForce: 8
   _maxHealth: 3
   _invulnerabilityTime: 1
-  _health: 0
 --- !u!114 &1988146253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2935,6 +2933,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d1e67de262b2c41a69d71ef976ebe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1988146254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988146246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c460bb9ec9d6293449d93201da5673a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 3
+  _jumpForce: 5
 --- !u!1001 &365884484207316726
 PrefabInstance:
   m_ObjectHideFlags: 0
